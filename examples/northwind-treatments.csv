@@ -1,0 +1,16 @@
+control,effort,cost_band,time_to_implement_weeks
+Block legacy authentication with Conditional Access,1,Low,1
+Security awareness programme with phishing simulations,1,Low,2
+Patch SLA for internet-facing systems,2,Low,4
+Full-disk encryption on all laptops,2,Low,4
+Quarterly access review workflow,2,Low,4
+Deploy EDR to warehouse and office workstations,3,Medium,6
+Immutable off-site backup copies,3,Medium,6
+Web application firewall for the customer portal,3,Medium,5
+Supplier security assessment programme,3,Low,8
+AI model input validation and output monitoring,3,Medium,8
+API authentication and rate limiting,3,Medium,6
+Privileged access management for ERP and infrastructure,4,High,12
+Central logging and SIEM onboarding,4,Medium,10
+Segment the OT and warehouse networks,5,High,16
+Data loss prevention for outbound e-mail,3,Medium,6

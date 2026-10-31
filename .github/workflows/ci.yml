@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl pytest
+      - name: Unit tests
+        run: pytest -q
+      - name: Regenerate the example plan
+        run: |
+          python rtp.py examples/northwind-register.csv \
+            --treatments examples/northwind-treatments.csv \
+            --out examples/output --title "Northwind Logistics"
+      - name: Committed example output must be current
+        run: git diff --exit-code -- examples/output/plan.md examples/output/plan.csv
+      - name: Workbook opens, has the three sheets and no macros
+        run: |
+          python - <<'EOF'
+          from openpyxl import load_workbook
+          wb = load_workbook("examples/output/plan.xlsx")
+          assert wb.sheetnames == ["Plan", "Owners", "Method"], wb.sheetnames
+          assert not getattr(wb, "vba_archive", None), "workbook must not contain macros"
+          rows = sum(1 for r in wb["Plan"].iter_rows(min_row=5, max_col=1) if r[0].value)
+          assert rows == 15, rows
+          print("OK:", wb.sheetnames, rows, "risks")
+          EOF
+      - name: Tool runs without openpyxl (--no-xlsx)
+        run: |
+          pip uninstall -y openpyxl
+          python rtp.py examples/northwind-register.csv -t examples/northwind-treatments.csv -o /tmp/noxlsx --no-xlsx -q
+          test -f /tmp/noxlsx/plan.md && test -f /tmp/noxlsx/plan.csv && test ! -f /tmp/noxlsx/plan.xlsx

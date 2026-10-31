@@ -1,0 +1,17 @@
+# Excel lock/temp files
+~$*.xlsx
+.~lock.*#
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
