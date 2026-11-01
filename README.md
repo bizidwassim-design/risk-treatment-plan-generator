@@ -112,6 +112,13 @@ pytest
 A planning aid, not a risk decision. Scores are only as good as the register behind them; the waves are a proposal
 for the risk owners and management to approve, amend or reject. All sample data is fictional ("Northwind Logistics").
 
+## AI assistance
+
+Built with Claude Code as a coding and writing assistant, which is why it appears as a co-author on some commits.
+**Editor and reviewer: Wassim Bizid**, who set the scope, the frameworks and the GRC approach, edited the content
+and decided what was published. Automated tests in CI check the published outputs. This is a maintainer review,
+not an independent one.
+
 ## License
 
 [MIT](LICENSE) — free to use, copy, modify and redistribute.
